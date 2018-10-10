@@ -3,7 +3,7 @@
 
 Produce some nice-looking animations by composing scenes, just using some numpy arrays and the power of interpolation
 
-*This branch was created to convert the source code to Python3*, the script can be broken, WIP.
+**This branch was created to convert the source code to Python3**, the script can be broken, WIP.
 
 ## Requirments:
 
