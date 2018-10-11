@@ -14,7 +14,8 @@ class App():
         self.canvas = tkinter.Canvas(width=800,  height=600)
         self.canvas.pack()
 
-    def callback(event): self.transition()
+    def callback(event):
+        self.transition()
         self.canvas.bind("<Button-1>",  callback)
         self.size = 800,  600
         width,  height = self.size
@@ -190,7 +191,8 @@ class App():
         return np.hstack((vec,  [[0] for i in range(len(vec))]))
 
     def fuzzify(self,  arr,  xamp,  yamp,  zamp=None):
-        if zamp is None: return np.array([i + (xamp * random(),  yamp * random()) for i in arr])
+        if zamp is None:
+            return np.array([i + (xamp * random(),  yamp * random()) for i in arr])
         return np.array([i + (xamp * random(),  yamp * random(),  zamp * random()) for i in arr])
 
     def swapDim(self, arr, d1, d2):
@@ -202,7 +204,8 @@ class App():
         return np.array(ret)
 
     def split(self,  arr,  dist,  n):
-        if n == 0: return np.array(arr)
+        if n == 0:
+            return np.array(arr)
         lower = arr[:len(arr)//2, :] - (dist,  0)
         upper = arr[len(arr)//2:, :] + (dist,  0)
         return np.vstack((self.split(lower,  dist/2,  n-1),  self.split(upper,  dist/2,  n-1)))
@@ -215,7 +218,8 @@ class App():
         if v1.shape != v2.shape:
             if v1.shape[1] == 2:
                 v1 = self.to3D(v1)
-            else: v2 = self.to3D(v2)
+            else:
+                v2 = self.to3D(v2)
         return np.array(v1 + (v2-v1)*t) 
 
     def transition(self):
