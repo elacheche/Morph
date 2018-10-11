@@ -126,7 +126,7 @@ class App():
         self.targets.append(circle*0.01)
         self.targets.append(circle*0.01)
 
-        #### 3d scences:
+        # 3d scences:
         circle = self.to3D(circle)
         circleShuffle = np.array(circle)
         np.random.shuffle(circleShuffle)
@@ -187,7 +187,7 @@ class App():
 
 
     def to3D(self,  vec):
-        return np.hstack((vec,  [[0] for i in range(len(vec))] ))
+        return np.hstack((vec,  [[0] for i in range(len(vec))]))
 
     def fuzzify(self,  arr,  xamp,  yamp,  zamp=None):
         if zamp is None: return np.array([i + (xamp * random(),  yamp * random()) for i in arr])
