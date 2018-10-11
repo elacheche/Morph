@@ -203,8 +203,8 @@ class App():
 
     def split(self, arr, dist, n):
         if n == 0: return np.array(arr)
-        lower = arr[:len(arr)/2, :] - (dist, 0)
-        upper = arr[len(arr)/2:, :] + (dist, 0)
+        lower = arr[:len(arr)//2, :] - (dist, 0)
+        upper = arr[len(arr)//2:, :] + (dist, 0)
         return np.vstack((self.split(lower, dist/2, n-1), self.split(upper, dist/2, n-1)))
 
     def rotate(self, arr, rot):
