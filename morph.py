@@ -104,7 +104,7 @@ class App():
         splits = itertools.cycle([0, 1, 2, 3, 4, 5, 4, 3, 2, 1])
         for th in np.arange(0, ntime+step, step):
             sinus = np.dstack((line[:, 0],  self.mapping(lambda t: amp*math.sin(period*2*pi*t/1000 - pi*th),  line[:, 0])))[0]
-            sinus = self.split(sinus,  35,  next(splits));
+            sinus = self.split(sinus,  35,  next(splits))
             self.targets.append(np.array(sinus))
 
         for i in range(1, 10):
@@ -242,19 +242,19 @@ class App():
         return vfunc(arr)
 
     def rotateX(self,  vec,  th): 
-        y = math.cos(th)*vec[1] - math.sin(th)*vec[2];
-        z = math.sin(th)*vec[1] + math.cos(th)*vec[2];  
-        return np.array([vec[0],  y,  z]); 
+        y = math.cos(th)*vec[1] - math.sin(th)*vec[2]
+        z = math.sin(th)*vec[1] + math.cos(th)*vec[2]
+        return np.array([vec[0],  y,  z])
 
     def rotateY(self,  vec,  th):
-        x = math.cos(th)*vec[0] - math.sin(th)*vec[2];
-        z = math.sin(th)*vec[0] + math.cos(th)*vec[2];  
-        return np.array([x,  vec[1],  z]); 
+        x = math.cos(th)*vec[0] - math.sin(th)*vec[2]
+        z = math.sin(th)*vec[0] + math.cos(th)*vec[2]
+        return np.array([x,  vec[1],  z])
 
     def rotateZ(self,  vec,  th):
-        y = math.cos(th)*vec[1] - math.sin(th)*vec[0];
-        x = math.sin(th)*vec[1] + math.cos(th)*vec[0];
-        return np.array([x,  y,  vec[2]]); 
+        y = math.cos(th)*vec[1] - math.sin(th)*vec[0]
+        x = math.sin(th)*vec[1] + math.cos(th)*vec[0]
+        return np.array([x,  y,  vec[2]])
 
     def bezier(self,  ctx,  p0,  p1,  p2,  p3):
         ax,  ay = p0
