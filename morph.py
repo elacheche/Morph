@@ -157,10 +157,10 @@ class App():
         self.targets.append(sphereInit)
 
         for th in np.arange(0.1,  pi,  0.1):
-            if random() < 0.4 or th-3.1<0.000001:
-                self.targets.append(self.fuzzify(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]),  10, 10, 10) *self.lerp(0.1, 3.1, 1, 2.3, th))
+            if random() < 0.4 or th-3.1 < 0.000001:
+                self.targets.append(self.fuzzify(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]),  10, 10, 10) * self.lerp(0.1, 3.1, 1, 2.3, th))
             else:
-                self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]) *self.lerp(0.1, 3.1, 1, 2.3, th))
+                self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]) * self.lerp(0.1, 3.1, 1, 2.3, th))
             # self.targets.append(self.swapDim(np.array([self.rotateY(vec,  pi/th) for vec in circle]),  1, 2))
         self.targets.append(np.array(self.targets[-1]))
         self.targets.append(np.array(self.targets[-1]))
@@ -168,16 +168,16 @@ class App():
         self.targets.append(np.array(self.targets[-1]))
 
         th = 3.15
-        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]) *1.3)
-        self.targets.append(self.fuzzify(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]),  10, 10, 10) *1.3)
-        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]) *1.3)
+        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]) * 1.3)
+        self.targets.append(self.fuzzify(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]),  10, 10, 10) * 1.3)
+        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]) * 1.3)
         prevState = np.array(self.targets[-1])
         th = -1.57
-        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) *1.3)
-        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) *1.3)
-        self.targets.append(self.fuzzify(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]),  10, 10, 10) *1.3)
-        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) *1.3)
-        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) *1.3)
+        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) * 1.3)
+        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) * 1.3)
+        self.targets.append(self.fuzzify(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]),  10, 10, 10) * 1.3)
+        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) * 1.3)
+        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) * 1.3)
 
 
         self.cycle = itertools.cycle(self.targets)
@@ -190,8 +190,8 @@ class App():
         return np.hstack((vec,  [[0] for i in range(len(vec))] ))
 
     def fuzzify(self,  arr,  xamp,  yamp,  zamp=None):
-        if zamp is None: return np.array([i+ (xamp*random(),  yamp*random()) for i in arr])
-        return np.array([i+ (xamp*random(),  yamp*random(),  zamp*random()) for i in arr])
+        if zamp is None: return np.array([i + (xamp * random(),  yamp * random()) for i in arr])
+        return np.array([i + (xamp * random(),  yamp * random(),  zamp * random()) for i in arr])
 
     def swapDim(self, arr, d1, d2):
         ret = []
