@@ -7,12 +7,14 @@ import numpy as np
 import itertools
 from random import random
 
+
 class App():
     def __init__(self):
         self.tk = tkinter.Tk()
         self.canvas = tkinter.Canvas(width=800,  height=600)
         self.canvas.pack()
-        def callback(event): self.transition()
+
+    def callback(event): self.transition()
         self.canvas.bind("<Button-1>",  callback)
         self.size = 800,  600
         width,  height = self.size
@@ -179,12 +181,10 @@ class App():
         self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) * 1.3)
         self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) * 1.3)
 
-
         self.cycle = itertools.cycle(self.targets)
         self.cycleFuzz = itertools.cycle(self.targetsFuzz)
         self.target = self.pts
         self.targetFuzz = self.pts
-
 
     def to3D(self,  vec):
         return np.hstack((vec,  [[0] for i in range(len(vec))]))
@@ -217,7 +217,6 @@ class App():
                 v1 = self.to3D(v1)
             else: v2 = self.to3D(v2)
         return np.array(v1 + (v2-v1)*t) 
-
 
     def transition(self):
         self.dt = 0
