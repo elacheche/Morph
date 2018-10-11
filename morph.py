@@ -138,13 +138,13 @@ class App():
         sphere.append(np.array([self.rotateY(vec, 4*pi/5) for vec in circleShuffle]))
         sphereReduced = [] # will contain 1001 vectors
         for i in range(1001):
-            if i in range(1,1001/5 + 1):
+            if i in range(1,1001//5 + 1):
                 sphereReduced.append(np.array(sphere[0][i]))
-            elif i in range(1001/5 , 2*1001/5 + 1):
+            elif i in range(1001//5 , 2*1001//5 + 1):
                 sphereReduced.append(np.array(sphere[1][i]))
-            elif i in range(2*1001/5 , 3*1001/5 + 1):
+            elif i in range(2*1001//5 , 3*1001//5 + 1):
                 sphereReduced.append(np.array(sphere[2][i]))
-            elif i in range(3*1001/5 , 4*1001/5 + 1):
+            elif i in range(3*1001//5 , 4*1001//5 + 1):
                 sphereReduced.append(np.array(sphere[3][i]))
             else:
                 sphereReduced.append(np.array(sphere[4][i]))
