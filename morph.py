@@ -50,8 +50,8 @@ class App():
         self.targets.append(circle)   
 
         square = []
-        sideL = 100 # half side length
-        _c_ = math.cos(pi/4)*rad # coordinates of point on the circle where x==y (1st quadrant)
+        sideL = 100  # half side length
+        _c_ = math.cos(pi/4)*rad  # coordinates of point on the circle where x==y (1st quadrant)
         for p in circle:
             x, y = p
             ax, ay = abs(x), abs(y)
@@ -98,9 +98,9 @@ class App():
         self.targets.append(line)
 
         amp = 100
-        period = 1.5 # how many half period to display
-        ntime = 2 # reptitions
-        step = 0.1 # [0,1]
+        period = 1.5  # how many half period to display
+        ntime = 2  # reptitions
+        step = 0.1  # [0,1]
         splits = itertools.cycle([0,1,2,3,4,5,4,3,2,1])
         for th in np.arange(0,ntime+step,step):
             sinus = np.dstack((line[:,0], self.mapping(lambda t: amp*math.sin(period*2*pi*t/1000 - pi*th), line[:,0])))[0]
@@ -130,13 +130,13 @@ class App():
         circle = self.to3D(circle)
         circleShuffle = np.array(circle)
         np.random.shuffle(circleShuffle)
-        sphere = [] # will contain 5005 vectors
+        sphere = []  # will contain 5005 vectors
         sphere.append(np.array(circleShuffle))
         sphere.append(np.array([self.rotateY(vec, pi/5) for vec in circleShuffle]))
         sphere.append(np.array([self.rotateY(vec, 2*pi/5) for vec in circleShuffle]))
         sphere.append(np.array([self.rotateY(vec, 3*pi/5) for vec in circleShuffle]))
         sphere.append(np.array([self.rotateY(vec, 4*pi/5) for vec in circleShuffle]))
-        sphereReduced = [] # will contain 1001 vectors
+        sphereReduced = []  # will contain 1001 vectors
         for i in range(1001):
             if i in range(1,1001//5 + 1):
                 sphereReduced.append(np.array(sphere[0][i]))
@@ -278,7 +278,7 @@ class App():
             self.colVec, self.colVecFin = self.colVecFin, self.colVec
         self.brush = aggdraw.Brush((int(round(colCur[0])),int(round(colCur[1])), int(round(colCur[2]))))
 
-        speed = 0.1 # interpolation speed. in range [0,1]
+        speed = 0.1  # interpolation speed. in range [0,1]
         img = Image.new('RGBA', self.size, "black")
         ctx = aggdraw.Draw(img)
         ctx.settransform((self.size[0]/2, self.size[1]/2))
