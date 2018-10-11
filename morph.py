@@ -104,7 +104,7 @@ class App():
         splits = itertools.cycle([0,1,2,3,4,5,4,3,2,1])
         for th in np.arange(0,ntime+step,step):
             sinus = np.dstack((line[:,0], self.mapping(lambda t: amp*math.sin(period*2*pi*t/1000 - pi*th), line[:,0])))[0]
-            sinus = self.split(sinus, 35, splits.next());
+            sinus = self.split(sinus, 35, next(splits));
             self.targets.append(np.array(sinus))
 
         for i in range(1,10):
