@@ -140,11 +140,11 @@ class App():
         for i in range(1001):
             if i in range(1, 1001//5 + 1):
                 sphereReduced.append(np.array(sphere[0][i]))
-            elif i in range(1001//5 ,  2*1001//5 + 1):
+            elif i in range(1001//5,  2*1001//5 + 1):
                 sphereReduced.append(np.array(sphere[1][i]))
-            elif i in range(2*1001//5 ,  3*1001//5 + 1):
+            elif i in range(2*1001//5,  3*1001//5 + 1):
                 sphereReduced.append(np.array(sphere[2][i]))
-            elif i in range(3*1001//5 ,  4*1001//5 + 1):
+            elif i in range(3*1001//5,  4*1001//5 + 1):
                 sphereReduced.append(np.array(sphere[3][i]))
             else:
                 sphereReduced.append(np.array(sphere[4][i]))
@@ -203,8 +203,8 @@ class App():
 
     def split(self,  arr,  dist,  n):
         if n == 0: return np.array(arr)
-        lower = arr[:len(arr)//2,  :] - (dist,  0)
-        upper = arr[len(arr)//2:,  :] + (dist,  0)
+        lower = arr[:len(arr)//2, :] - (dist,  0)
+        upper = arr[len(arr)//2:, :] + (dist,  0)
         return np.vstack((self.split(lower,  dist/2,  n-1),  self.split(upper,  dist/2,  n-1)))
 
     def rotate(self,  arr,  rot):
