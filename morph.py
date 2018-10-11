@@ -28,7 +28,7 @@ class App():
             (self.colVec[0],  self.colVec[1],  self.colVec[2])
         )
         # self.pen = aggdraw.Pen((255, 0, 0))
-        
+
         self.std = np.arange(0,  1.001,  0.001)
         randPts = np.random.rand(1001, 2)*2*self.size - self.size
         self.pts = randPts
@@ -46,14 +46,14 @@ class App():
         rad = 100
         twopi = self.mapping(lambda x: pi*2*x,  self.std)
         xs = self.mapping(lambda t: math.cos(pi*2*t)*rad,  self.std)
-        ys = self.mapping(lambda t: math.sin(pi*2*t)*rad,  self.std) 
+        ys = self.mapping(lambda t: math.sin(pi*2*t)*rad,  self.std)
         circle = np.dstack((xs,  ys))[0]
         self.targets.append(self.interpolate(line, circle, 0.25))
         self.targets.append(self.interpolate(line, circle, 0.5))
-        self.targets.append(self.interpolate(line, circle, 0.75))   
-        self.targets.append(circle)   
-        self.targets.append(circle)   
-        self.targets.append(circle)   
+        self.targets.append(self.interpolate(line, circle, 0.75))
+        self.targets.append(circle)
+        self.targets.append(circle)
+        self.targets.append(circle)
 
         square = []
         sideL = 100  # half side length
@@ -92,7 +92,7 @@ class App():
         ))
 
         # square2 = []
-        # sideL = 70  
+        # sideL = 70
         # for p in circle:
         #     x,  y = p
         #     ax,  ay = abs(x),  abs(y)
@@ -105,17 +105,17 @@ class App():
         #     square2.append([fx, fy])
         # self.targets.append(self.split(
         #   self.rotate(np.array(square2),  pi/4),  50, 5
-        # )) 
+        # ))
         # self.targets.append(self.split(
         #   self.rotate(np.array(square2),  pi/4),  50, 5
-        # )) 
+        # ))
 
         self.targets.append(circle*0.01)
         self.targets.append(circle*0.01)
         self.targets.append(circle*0.01)
         self.targets.append(circle*0.01)
 
-        self.targets.append(self.split(line, 50, 5))  
+        self.targets.append(self.split(line, 50, 5))
         self.targets.append(self.split(line, 50, 5))
         self.targets.append(line)
         self.targets.append(line)
@@ -133,15 +133,15 @@ class App():
             self.targets.append(np.array(sinus))
 
         for i in range(1, 10):
-            self.targets.append(self.interpolate(line, circle, i*0.1))     
+            self.targets.append(self.interpolate(line, circle, i*0.1))
         self.targets.append(self.fuzzify(circle, 1, 1))
         self.targets.append(self.fuzzify(circle, 2, 5))
-        self.targets.append(self.fuzzify(circle, 3, 10))    
-        self.targets.append(circle)  
+        self.targets.append(self.fuzzify(circle, 3, 10))
+        self.targets.append(circle)
 
-        self.targets.append(randPts)    
-        self.targets.append(randPts)    
-        self.targets.append(randPts) 
+        self.targets.append(randPts)
+        self.targets.append(randPts)
+        self.targets.append(randPts)
 
         self.targets.append(circle*10)
         self.targets.append(circle*0.01)
@@ -181,7 +181,7 @@ class App():
                 sphereReduced.append(np.array(sphere[3][i]))
             else:
                 sphereReduced.append(np.array(sphere[4][i]))
-        
+
         print(np.arange(0.1,  pi,  0.1))
         th = 1.57
         sphereInit = np.array([self.rotateX(
@@ -200,7 +200,7 @@ class App():
             else:
                 self.targets.append(np.array(
                     [self.rotateX(self.rotateY(vec,  -th),
-                                  -th) for vec in sphereInit]) * 
+                                  -th) for vec in sphereInit]) *
                     self.lerp(0.1, 3.1, 1, 2.3, th))
             # self.targets.append(self.swapDim(np.array(
             #    [self.rotateY(vec,  pi/th) for vec in circle]),  1, 2))
@@ -280,7 +280,7 @@ class App():
                 v1 = self.to3D(v1)
             else:
                 v2 = self.to3D(v2)
-        return np.array(v1 + (v2-v1)*t) 
+        return np.array(v1 + (v2-v1)*t)
 
     def transition(self):
         self.dt = 0
@@ -295,16 +295,16 @@ class App():
         return m*x + p
 
     def update(self):
-        self.canvas.delete('all')       
+        self.canvas.delete('all')
         self.photo = self.draw()
         self.canvas.create_image(0, 0,  image=self.photo,  anchor="nw")
         self.tk.after(1000//60,  self.update)
-        
+
     def mapping(self,  func,  arr):
         vfunc = np.vectorize(func)
         return vfunc(arr)
 
-    def rotateX(self,  vec,  th): 
+    def rotateX(self,  vec,  th):
         y = math.cos(th)*vec[1] - math.sin(th)*vec[2]
         z = math.sin(th)*vec[1] + math.cos(th)*vec[2]
         return np.array([vec[0],  y,  z])
