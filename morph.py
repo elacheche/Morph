@@ -14,8 +14,9 @@ class App():
         self.canvas = tkinter.Canvas(width=800,  height=600)
         self.canvas.pack()
 
-    def callback(event):
-        self.transition()
+        def callback(event):
+            self.transition()
+
         self.canvas.bind("<Button-1>",  callback)
         self.size = 800,  600
         width,  height = self.size
@@ -23,7 +24,9 @@ class App():
         self.colVec = np.array([255, 0, 0])
         self.colVecFin = np.array([0, 0, 255])
         self.dcol = 0.0
-        self.brush = aggdraw.Brush((self.colVec[0],  self.colVec[1],  self.colVec[2]))
+        self.brush = aggdraw.Brush(
+            (self.colVec[0],  self.colVec[1],  self.colVec[2])
+        )
         # self.pen = aggdraw.Pen((255, 0, 0))
         
         self.std = np.arange(0,  1.001,  0.001)
@@ -54,7 +57,8 @@ class App():
 
         square = []
         sideL = 100  # half side length
-        _c_ = math.cos(pi/4)*rad  # coordinates of point on the circle where x==y (1st quadrant)
+        # coordinates of point on the circle where x==y (1st quadrant)
+        _c_ = math.cos(pi/4)*rad
         for p in circle:
             x,  y = p
             ax,  ay = abs(x),  abs(y)
@@ -68,12 +72,24 @@ class App():
         self.targets.append(self.rotate(np.array(square),  pi/4))
         self.targets.append(self.rotate(np.array(square),  pi/4))
         self.targets.append(self.rotate(np.array(square),  pi/4))
-        self.targets.append(self.interpolate(circle,  self.rotate(np.array(square),  pi/4),  1.6))
-        self.targets.append(self.interpolate(circle,  self.rotate(np.array(square),  pi/4),  1.6))
-        self.targets.append(self.interpolate(circle,  self.rotate(np.array(square),  pi/4),  1.6))
-        self.targets.append(self.fuzzify(self.rotate(np.array(square),  pi/4),  3, 13))
-        self.targets.append(self.fuzzify(self.rotate(np.array(square),  pi/4),  3, 13))
-        self.targets.append(self.fuzzify(self.rotate(np.array(square),  pi/4),  3, 13))
+        self.targets.append(self.interpolate(
+            circle,  self.rotate(np.array(square),  pi/4),  1.6
+        ))
+        self.targets.append(self.interpolate(
+            circle,  self.rotate(np.array(square),  pi/4),  1.6
+        ))
+        self.targets.append(self.interpolate(
+            circle,  self.rotate(np.array(square),  pi/4),  1.6
+        ))
+        self.targets.append(self.fuzzify(
+            self.rotate(np.array(square),  pi/4),  3, 13
+        ))
+        self.targets.append(self.fuzzify(
+            self.rotate(np.array(square),  pi/4),  3, 13
+        ))
+        self.targets.append(self.fuzzify(
+            self.rotate(np.array(square),  pi/4),  3, 13
+        ))
 
         # square2 = []
         # sideL = 70  
@@ -87,8 +103,12 @@ class App():
         #         fy = self.lerp(-_c_, _c_, -sideL, sideL, ay)*np.sign(y)
         #         fx = sideL*np.sign(x)
         #     square2.append([fx, fy])
-        # self.targets.append(self.split(self.rotate(np.array(square2),  pi/4),  50, 5)) 
-        # self.targets.append(self.split(self.rotate(np.array(square2),  pi/4),  50, 5)) 
+        # self.targets.append(self.split(
+        #   self.rotate(np.array(square2),  pi/4),  50, 5
+        # )) 
+        # self.targets.append(self.split(
+        #   self.rotate(np.array(square2),  pi/4),  50, 5
+        # )) 
 
         self.targets.append(circle*0.01)
         self.targets.append(circle*0.01)
@@ -106,7 +126,9 @@ class App():
         step = 0.1  # [0, 1]
         splits = itertools.cycle([0, 1, 2, 3, 4, 5, 4, 3, 2, 1])
         for th in np.arange(0, ntime+step, step):
-            sinus = np.dstack((line[:, 0],  self.mapping(lambda t: amp*math.sin(period*2*pi*t/1000 - pi*th),  line[:, 0])))[0]
+            sinus = np.dstack((line[:, 0],  self.mapping(
+                lambda t: amp*math.sin(period*2*pi*t/1000 - pi*th),  line[:, 0]
+            )))[0]
             sinus = self.split(sinus,  35,  next(splits))
             self.targets.append(np.array(sinus))
 
@@ -135,10 +157,18 @@ class App():
         np.random.shuffle(circleShuffle)
         sphere = []  # will contain 5005 vectors
         sphere.append(np.array(circleShuffle))
-        sphere.append(np.array([self.rotateY(vec,  pi/5) for vec in circleShuffle]))
-        sphere.append(np.array([self.rotateY(vec,  2*pi/5) for vec in circleShuffle]))
-        sphere.append(np.array([self.rotateY(vec,  3*pi/5) for vec in circleShuffle]))
-        sphere.append(np.array([self.rotateY(vec,  4*pi/5) for vec in circleShuffle]))
+        sphere.append(np.array(
+            [self.rotateY(vec,  pi/5) for vec in circleShuffle]
+            ))
+        sphere.append(np.array(
+            [self.rotateY(vec,  2*pi/5) for vec in circleShuffle]
+            ))
+        sphere.append(np.array(
+            [self.rotateY(vec,  3*pi/5) for vec in circleShuffle]
+            ))
+        sphere.append(np.array(
+            [self.rotateY(vec,  4*pi/5) for vec in circleShuffle]
+            ))
         sphereReduced = []  # will contain 1001 vectors
         for i in range(1001):
             if i in range(1, 1001//5 + 1):
@@ -154,33 +184,58 @@ class App():
         
         print(np.arange(0.1,  pi,  0.1))
         th = 1.57
-        sphereInit = np.array([self.rotateX(self.rotateY(vec,  th),  th) for vec in sphereReduced])
+        sphereInit = np.array([self.rotateX(
+            self.rotateY(vec,  th),  th
+        ) for vec in sphereReduced])
         self.targets.append(sphereInit)
         self.targets.append(sphereInit)
         self.targets.append(sphereInit)
 
         for th in np.arange(0.1,  pi,  0.1):
             if random() < 0.4 or th-3.1 < 0.000001:
-                self.targets.append(self.fuzzify(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]),  10, 10, 10) * self.lerp(0.1, 3.1, 1, 2.3, th))
+                self.targets.append(self.fuzzify(np.array(
+                    [self.rotateX(self.rotateY(vec,  -th),
+                                  -th) for vec in sphereInit]),
+                    10, 10, 10) * self.lerp(0.1, 3.1, 1, 2.3, th))
             else:
-                self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]) * self.lerp(0.1, 3.1, 1, 2.3, th))
-            # self.targets.append(self.swapDim(np.array([self.rotateY(vec,  pi/th) for vec in circle]),  1, 2))
+                self.targets.append(np.array(
+                    [self.rotateX(self.rotateY(vec,  -th),
+                                  -th) for vec in sphereInit]) * 
+                    self.lerp(0.1, 3.1, 1, 2.3, th))
+            # self.targets.append(self.swapDim(np.array(
+            #    [self.rotateY(vec,  pi/th) for vec in circle]),  1, 2))
         self.targets.append(np.array(self.targets[-1]))
         self.targets.append(np.array(self.targets[-1]))
         self.targets.append(np.array(self.targets[-1]))
         self.targets.append(np.array(self.targets[-1]))
 
         th = 3.15
-        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]) * 1.3)
-        self.targets.append(self.fuzzify(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]),  10, 10, 10) * 1.3)
-        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in sphereInit]) * 1.3)
+        self.targets.append(np.array(
+            [self.rotateX(self.rotateY(vec,  -th),
+                          -th) for vec in sphereInit]) * 1.3)
+        self.targets.append(self.fuzzify(np.array(
+            [self.rotateX(self.rotateY(vec,  -th),
+                          -th) for vec in sphereInit]),  10, 10, 10) * 1.3)
+        self.targets.append(np.array(
+            [self.rotateX(self.rotateY(vec,  -th),
+                          -th) for vec in sphereInit]) * 1.3)
         prevState = np.array(self.targets[-1])
         th = -1.57
-        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) * 1.3)
-        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) * 1.3)
-        self.targets.append(self.fuzzify(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]),  10, 10, 10) * 1.3)
-        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) * 1.3)
-        self.targets.append(np.array([self.rotateX(self.rotateY(vec,  -th),  -th) for vec in prevState]) * 1.3)
+        self.targets.append(np.array(
+            [self.rotateX(self.rotateY(vec,  -th),
+                          -th) for vec in prevState]) * 1.3)
+        self.targets.append(np.array(
+            [self.rotateX(self.rotateY(vec,  -th),
+                          -th) for vec in prevState]) * 1.3)
+        self.targets.append(self.fuzzify(np.array(
+            [self.rotateX(self.rotateY(vec,  -th),
+                          -th) for vec in prevState]),  10, 10, 10) * 1.3)
+        self.targets.append(np.array(
+            [self.rotateX(self.rotateY(vec,  -th),
+                          -th) for vec in prevState]) * 1.3)
+        self.targets.append(np.array(
+            [self.rotateX(self.rotateY(vec,  -th),
+                          -th) for vec in prevState]) * 1.3)
 
         self.cycle = itertools.cycle(self.targets)
         self.cycleFuzz = itertools.cycle(self.targetsFuzz)
@@ -192,8 +247,11 @@ class App():
 
     def fuzzify(self,  arr,  xamp,  yamp,  zamp=None):
         if zamp is None:
-            return np.array([i + (xamp * random(),  yamp * random()) for i in arr])
-        return np.array([i + (xamp * random(),  yamp * random(),  zamp * random()) for i in arr])
+            return np.array([i + (xamp * random(),
+                             yamp * random()) for i in arr])
+        return np.array([i + (xamp * random(),
+                         yamp * random(),
+                         zamp * random()) for i in arr])
 
     def swapDim(self, arr, d1, d2):
         ret = []
@@ -208,10 +266,12 @@ class App():
             return np.array(arr)
         lower = arr[:len(arr)//2, :] - (dist,  0)
         upper = arr[len(arr)//2:, :] + (dist,  0)
-        return np.vstack((self.split(lower,  dist/2,  n-1),  self.split(upper,  dist/2,  n-1)))
+        return np.vstack((self.split(lower,  dist/2,  n-1),
+                          self.split(upper,  dist/2,  n-1)))
 
     def rotate(self,  arr,  rot):
-        matRot = np.array([[math.cos(rot),  -math.sin(rot)],  [math.sin(rot),  math.cos(rot)]])
+        matRot = np.array([[math.cos(rot),  -math.sin(rot)],
+                           [math.sin(rot),  math.cos(rot)]])
         return np.array([matRot.dot(v) for v in arr])
 
     def interpolate(self,  v1,  v2,  t):
@@ -264,7 +324,8 @@ class App():
         bx,  by = p1
         cx,  cy = p2
         dx,  dy = p3
-        pathstring = " m{:f}, {:f} c{:f}, {:f}, {:f}, {:f}, {:f}, {:f}".format(ax, ay, bx, by, cx, cy, dx, dy)
+        pathstring = "m{:f}, {:f} c{:f}, {:f}, {:f}, {:f}, {:f}, {:f}" \
+                     .format(ax, ay, bx, by, cx, cy, dx, dy)
         symbol = aggdraw.Symbol(pathstring)
         ctx.symbol((0, 0), symbol,  aggdraw.Pen((255, 0, 0)))
 
@@ -279,7 +340,9 @@ class App():
         if 1.0-self.dcol < 0.0000001:
             self.dcol = 0.0
             self.colVec,  self.colVecFin = self.colVecFin,  self.colVec
-        self.brush = aggdraw.Brush((int(round(colCur[0])), int(round(colCur[1])),  int(round(colCur[2]))))
+        self.brush = aggdraw.Brush((int(round(colCur[0])),
+                                    int(round(colCur[1])),
+                                    int(round(colCur[2]))))
 
         speed = 0.1  # interpolation speed. in range [0, 1]
         img = Image.new('RGBA',  self.size,  "black")
