@@ -222,7 +222,7 @@ class App():
     def transition(self):
         self.dt = 0
         self.pts = self.newPts
-        self.target = self.cycle.next()
+        self.target = next(self.cycle)
         # self.targetFuzz = self.cycleFuzz.next()
 
     # map x in [a,b] to y in [c,d]
@@ -235,7 +235,7 @@ class App():
         self.canvas.delete('all')       
         self.photo = self.draw()
         self.canvas.create_image(0,0, image=self.photo, anchor="nw")
-        self.tk.after(1000/60, self.update)
+        self.tk.after(1000//60, self.update)
         
     def mapping(self, func, arr):
         vfunc = np.vectorize(func)
